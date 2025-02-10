@@ -19,7 +19,7 @@ val_generator = train_datagen.flow_from_directory(
     batch_size=64, class_mode="categorical", subset="validation"
 )
 
-# CNN Model
+
 model = Sequential([
     Conv2D(32, (3, 3), activation='relu', input_shape=(48, 48, 1)),
     MaxPooling2D(2, 2),
@@ -33,13 +33,10 @@ model = Sequential([
     Dense(7, activation='softmax')  # 7 emotions
 ])
 
-# Compile
 model.compile(optimizer=Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
 
-# Train
 model.fit(train_generator, validation_data=val_generator, epochs=20)
 
-# Save Model
 os.makedirs("models", exist_ok=True)
 model.save("models/emotion_model.h5")
 
